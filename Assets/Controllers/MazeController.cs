@@ -2,29 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+//Unused ATM
+//Will server the funtion of controlling the different parts of the maze
+//i.e. hazards and such
 public class MazeController : MonoBehaviour {
 
 	private GameObject[] walls;
+	private Maze myMaze;
 	public GameObject start;
 	public int dimensions;
 	public string mazeStr;
+	public TextAsset mazeTxt;
 
 	// Use this for initialization
 	void Start () {
-
+		myMaze = new Maze ();
 		walls = Resources.LoadAll<GameObject> ("Halls");
-		//dimensions = 5;
-		SpawnMaze (mazeStr, dimensions);
-		start.transform.position = new Vector3(-4, 0 , dimensions * 4);
-		//TestSpawn(testwall);
-		/*
-		for (int z = 0; z < 3; z++) {
-			for (int x = 0; x < 3; x++) {
-				Instantiate (wall, new Vector3 (x * 5, 0, z*5), Quaternion.identity);
-			}
-		}
-		*/
+
+		myMaze.GenerateSimple(dimensions, mazeStr);
+		//myMaze.GenerateFromTxt(mazeTxt);
+		SpawnMaze (myMaze);
+
 	}
 
 	void SpawnRandomWall(){
@@ -39,26 +37,12 @@ public class MazeController : MonoBehaviour {
 		}
 	}
 
-	void SpawnMaze(string theMaze, int dim){
-		//Spawns a maze from a comma seperated string
-		int[] maze = Array.ConvertAll (theMaze.Split (','), int.Parse);
-		int i = 0;
-		for (int z = dim; z > 0; z--) {
-			for (int x = 0; x < dim; x++) {
-				int whichWall = maze[i];
-				i++;
-				GameObject myWall = Instantiate (walls [whichWall]) as GameObject;
-				Debug.Log ("Placeing Tile at x = " + x + " z = " + z);
-				myWall.transform.position = new Vector3 (x * 4, 0, z * 4);
-				if (z == 1 && x == dim - 1) {
-					GameObject lastwall = Instantiate (walls [16]) as GameObject;
-					lastwall.transform.position = new Vector3 ( (x + 1) * 4, 0, z * 4);
-					Debug.Log ("Placing end Tile at x = " + x + " z = " + z);
-				}
-			}
+	void SpawnMaze(Maze myMaze){
+		foreach (Tile tile in myMaze.tiles) {
+			GameObject myWall = Instantiate (walls [tile.type]) as GameObject;
+			myWall.transform.position = new Vector3 (tile.x * 5, tile.y, tile.z * 5);
 		}
 	}
-
 	void TestSpawn(int wall){
 		GameObject myWall = Instantiate (walls [wall]) as GameObject;
 	}
