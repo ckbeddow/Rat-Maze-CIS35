@@ -1,3 +1,6 @@
+2/13:
+	Played with README.md. Continue to access, change, add, commit, and push to get used to git hub commands. 
+
 2/9:
 	I made major changes to how the editor works. Now mazes are be generated in the editor using the maze builder script on the MazeBuilder gameobject
 	The maze builder can take either a string and dimentions as before or can take a .txt file.
