@@ -10,16 +10,16 @@ Rat Maze project for Cabrillo CIS35 Class
 The player is an albino lab rat part of a cognitive psychology experiment. He finds himself inside a maze with obstacles and challenges that he must overcome in order to find the coveted cheese at the end!
 
 ### Team Roles:
-Chuck:
+#### Chuck:
 * Rat Design/Animation
 * Scenery
 
-Clara: 
+#### Clara: 
 * Level Design
 * Lighting
 * Skybox
 
-Dave:
+#### Dave:
 * Sound Effects
 * Navigation/Movement
 
