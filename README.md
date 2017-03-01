@@ -12,9 +12,12 @@ The player is an albino lab rat part of a cognitive psychology experiment. He fi
 #### Team Roles:
 Chuck:
 * Rat design/animation
+* Scenery
 
 Clara: 
 * Level design
+* Lighting
+* Skybox
 
 Dave:
 * Sound effects
@@ -25,9 +28,6 @@ Dave:
 * Electic floor/lever
 * Rolling ball / Spider / Timing a trip on a hallway
 * Water Hazard
-
-#### To Consider:
-* How to handle movement on a phone screen.
 
 #### Contextual Ideas:
 * Light
