@@ -26,7 +26,7 @@ Dave:
 ### Features:
 * Mouse Trap/Stuffed Mouse
 * Electric Floor/Lever
-* Rolling ball / Spider (Timing a trip on a hallway)
+* Rolling Ball/Spider (Timing a trip on a hallway)
 
 ### Contextual Ideas:
 * Light
