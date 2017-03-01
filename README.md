@@ -7,7 +7,7 @@ Rat Maze project for Cabrillo CIS35 Class
 * Dave VandenHoek - david.vandenhoek@gmail.com
 
 ### Description:
-The player is an albino lab rat part of a cognitive psychology experiment. He finds himself inside a maxe with obstacles and challenges that he must overcome in order to find the coveted cheese at the end!
+The player is an albino lab rat part of a cognitive psychology experiment. He finds himself inside a maze with obstacles and challenges that he must overcome in order to find the coveted cheese at the end!
 
 ### Team Roles:
 Chuck:
