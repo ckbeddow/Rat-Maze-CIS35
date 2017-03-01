@@ -11,24 +11,24 @@ The player is an albino lab rat part of a cognitive psychology experiment. He fi
 
 ### Team Roles:
 Chuck:
-* Rat design/animation
+* Rat Design/Animation
 * Scenery
 
 Clara: 
-* Level design
+* Level Design
 * Lighting
 * Skybox
 
 Dave:
-* Sound effects
+* Sound Effects
 * Navigation/Movement
 
 ### Features:
-* Mouse trap/stuffed mouse
-* Electric floor/lever
-* Rolling ball / Spider / Timing a trip on a hallway
+* Mouse Trap/Stuffed Mouse
+* Electric Floor/Lever
+* Rolling ball / Spider (Timing a trip on a hallway)
 
 ### Contextual Ideas:
 * Light
 * Water Bottle
-* Sugar pellet dispenser
+* Sugar pellet Dispenser
