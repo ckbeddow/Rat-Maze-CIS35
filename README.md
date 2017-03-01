@@ -25,9 +25,8 @@ Dave:
 
 #### Features:
 * Mouse trap/stuffed mouse
-* Electic floor/lever
+* Electric floor/lever
 * Rolling ball / Spider / Timing a trip on a hallway
-* Water Hazard
 
 #### Contextual Ideas:
 * Light
