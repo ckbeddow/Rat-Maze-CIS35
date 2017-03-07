@@ -31,4 +31,4 @@ The player is an albino lab rat part of a cognitive psychology experiment. He fi
 ### Contextual Ideas:
 * Light
 * Water Bottle
-* Sugar pellet Dispenser
+* Sugar Pellet Dispenser
