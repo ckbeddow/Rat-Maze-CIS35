@@ -1,3 +1,6 @@
+3/10:
+	Added Rat Model. Added new ratcontroller and camera script for the new model. 
+
 2/13:
 	Played with README.md. Continue to access, change, add, commit, and push to get used to git hub commands. 
 
