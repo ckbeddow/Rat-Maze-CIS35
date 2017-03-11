@@ -1,5 +1,6 @@
 3/10:
 	Added Rat Model. Added new ratcontroller and camera script for the new model. 
+	Created a new scene and maze text file called "ClassDemo". Also testing electric floor effects.
 
 3/9:
 	Added a lightning prefab. 
