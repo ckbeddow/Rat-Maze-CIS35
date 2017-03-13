@@ -44,5 +44,5 @@ The player is an albino lab rat part of a cognitive psychology experiment. He fi
 * We then won't have to design by hand
 
 ### Data Structures Relevant Algorithm Assignments
-* Assignment 6: Disjointed Sets (Maze Generator) - due April 30
-* Assignment 8: Breadth-First Search (Maze Solver) - due TBA (final assignemnt before extra credit)
+* Assignment 6: Disjointed Sets (Maze Generator) - lecture passed - due April 30
+* Assignment 8: Breadth-First Search (Maze Solver) - lecture 4/12 - due TBA
