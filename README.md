@@ -42,3 +42,7 @@ The player is an albino lab rat part of a cognitive psychology experiment. He fi
 * Consider the Key-Obstacle a "Mini Maze" with a sub-StartTile(obstacle) and sub-EndTile(key)
 * Can repeate steps within the minimaze to combine obstacles as mazes get more complicated
 * We then won't have to design by hand
+
+### Data Structures Relevant Algorithm Assignments
+* Assignment 6: Disjointed Sets (Maze Generator) - due April 30
+* Assignment 8: Breadth-First Search (Maze Solver) - due TBA (final assignemnt before extra credit)
