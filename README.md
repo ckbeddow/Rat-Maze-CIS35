@@ -22,6 +22,7 @@ The player is an albino lab rat part of a cognitive psychology experiment. He fi
 #### Dave:
 * Sound Effects
 * Navigation/Movement
+* Opening
 
 ### Features:
 * Mouse Trap/Stuffed Mouse
