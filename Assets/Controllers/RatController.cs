@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class RatController : MonoBehaviour {
 
+	public bool alwaysRun = false;
 	public float walkSpeed = 2;
 	public float runSpeed = 6;
 	public float gravity = -9.8f;
@@ -46,7 +47,12 @@ public class RatController : MonoBehaviour {
 			transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime) ;
 		}
 
-		bool running = Input.GetKey (KeyCode.LeftShift);
+		bool running = false;
+		if (!alwaysRun) {
+			running = Input.GetKey (KeyCode.LeftShift);
+		} else {
+			running = !Input.GetKey (KeyCode.LeftShift);
+		}
 		float targetSpeed = ((running) ? runSpeed : walkSpeed) * inputDir.magnitude;
 		currentSpeed = Mathf.SmoothDamp (currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
 

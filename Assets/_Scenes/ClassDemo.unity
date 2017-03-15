@@ -37,12 +37,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465797, g: 0.4964139, b: 0.5748177, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 7
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -11400,6 +11400,11 @@ Prefab:
       propertyPath: winText
       value: 
       objectReference: {fileID: 864271636}
+    - target: {fileID: 114423150570279898, guid: 1e1a2e95063a2a349ba2f82e4fac2395,
+        type: 2}
+      propertyPath: alwaysRun
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e1a2e95063a2a349ba2f82e4fac2395, type: 2}
   m_IsPrefabParent: 0
@@ -12876,7 +12881,7 @@ MonoBehaviour:
   mouseSensitivity: 10
   target: {fileID: 371650681}
   dstFromTarget: 2
-  pitchMinMax: {x: 2.5, y: 85}
+  pitchMinMax: {x: 10, y: 85}
   rotationSmoothTime: 0.12
 --- !u!81 &1084569435
 AudioListener:
@@ -17921,7 +17926,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4919352068265484, guid: 008cde737311c554ba927cd85a9c689c, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.00000006496376
+      value: 0.393
       objectReference: {fileID: 0}
     - target: {fileID: 4919352068265484, guid: 008cde737311c554ba927cd85a9c689c, type: 2}
       propertyPath: m_LocalPosition.z
@@ -19394,15 +19399,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4111685641131318, guid: cab01c817b12344a5baec393f13c986a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4111685641131318, guid: cab01c817b12344a5baec393f13c986a, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 31.04
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4111685641131318, guid: cab01c817b12344a5baec393f13c986a, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 3.52
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4111685641131318, guid: cab01c817b12344a5baec393f13c986a, type: 2}
       propertyPath: m_LocalRotation.x
@@ -19431,7 +19436,7 @@ Prefab:
     - target: {fileID: 108741225626744726, guid: cab01c817b12344a5baec393f13c986a,
         type: 2}
       propertyPath: m_Intensity
-      value: 1.61
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 108741225626744726, guid: cab01c817b12344a5baec393f13c986a,
         type: 2}
@@ -19447,6 +19452,16 @@ Prefab:
         type: 2}
       propertyPath: m_Color.b
       value: 0.9558824
+      objectReference: {fileID: 0}
+    - target: {fileID: 108741225626744726, guid: cab01c817b12344a5baec393f13c986a,
+        type: 2}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108741225626744726, guid: cab01c817b12344a5baec393f13c986a,
+        type: 2}
+      propertyPath: m_Shadows.m_Strength
+      value: 0.262
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cab01c817b12344a5baec393f13c986a, type: 2}

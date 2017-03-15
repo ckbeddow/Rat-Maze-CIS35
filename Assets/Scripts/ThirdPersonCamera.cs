@@ -8,7 +8,7 @@ public class ThirdPersonCamera : MonoBehaviour {
 	public float mouseSensitivity = 10;
 	public Transform target;
 	public float dstFromTarget = 2;
-	public Vector2 pitchMinMax = new Vector2 (2.5f, 85);
+	public Vector2 pitchMinMax = new Vector2 (10, 85);
 
 	public float rotationSmoothTime = .12f;
 	Vector3 rotationSmoothVelocity;
