@@ -20,6 +20,7 @@ The player is an albino lab rat part of a cognitive psychology experiment. He fi
 #### Clara: 
 * Level Design
 * Particle System
+* Interactive Obstacles
 * Obstacle Generator Algorithm (given time)
 
 #### Dave:
