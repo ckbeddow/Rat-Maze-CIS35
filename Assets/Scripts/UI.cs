@@ -16,7 +16,7 @@ public class UI : MonoBehaviour {
 	}
 
 	void Update () {
-		timeText.text = string.Format("{0:00}:{1:00}", (int) (Time.time/60), (int) (Time.time%60));
+		timeText.text = string.Format("{0:00}:{1:00}", (int) (Time.timeSinceLevelLoad/60), (int) (Time.timeSinceLevelLoad%60));
 	}
 		
 }
