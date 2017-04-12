@@ -1,6 +1,7 @@
 4/12:
 	Created trigger for electric floor. Now recognizes when the player walks into it and displays a message that says "Zap! You died." 
 	Also there is a block prefab on level Basic 2.0 that will deactivate the floor for some seconds when the rat collide with it.
+	Added a timer to track how long it takes to solve the maze. May needed to be edited when we introduce transition from one level to another.
 
 4/4:
  	Fixed electricity lighting.

@@ -1550,16 +1550,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114746996251103534, guid: 537e438145be048199d305568cc2653c,
-        type: 2}
-      propertyPath: m_FontData.m_Alignment
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224583520353335424, guid: 537e438145be048199d305568cc2653c,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 400
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 537e438145be048199d305568cc2653c, type: 2}
   m_IsPrefabParent: 0
@@ -2368,6 +2358,11 @@ Prefab:
       propertyPath: countText
       value: 
       objectReference: {fileID: 1130865729}
+    - target: {fileID: 114423150570279898, guid: 1e1a2e95063a2a349ba2f82e4fac2395,
+        type: 2}
+      propertyPath: alwaysRun
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e1a2e95063a2a349ba2f82e4fac2395, type: 2}
   m_IsPrefabParent: 0
