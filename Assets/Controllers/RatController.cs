@@ -84,4 +84,9 @@ public class RatController : MonoBehaviour {
 			winText.text = "You Win!";
 		}
 	}
+
+	void Die() {
+		winText.text = "Zap! You died!";
+	}
+
 }
