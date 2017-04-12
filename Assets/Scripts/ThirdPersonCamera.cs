@@ -10,6 +10,10 @@ public class ThirdPersonCamera : MonoBehaviour {
 	public float dstFromTarget = 2;
 	public Vector2 pitchMinMax = new Vector2 (10, 85);
 
+	private float mouseX;
+	private float mouseY;
+	public bool mobileControls = true; //true for now until we determine how to detect
+
 	public float rotationSmoothTime = .12f;
 	Vector3 rotationSmoothVelocity;
 	Vector3 currentRotation;
@@ -19,19 +23,51 @@ public class ThirdPersonCamera : MonoBehaviour {
 	float pitch;
 
 	void Start() {
+		mouseX = 0.0f;
+		mouseY = 0.0f;
+
 		if (lockCursor) {
 			Cursor.lockState = CursorLockMode.Locked;
 			Cursor.visible = false;
 		}
 	}
 	void LateUpdate () {
-		yaw += Input.GetAxis ("Mouse X") * mouseSensitivity;
-		pitch -= Input.GetAxis ("Mouse Y") * mouseSensitivity;
+		if (mobileControls) {
+			yaw += mouseX * mouseSensitivity;
+			pitch -= mouseY * mouseSensitivity;
+
+		} else {
+			yaw += Input.GetAxis ("Mouse X") * mouseSensitivity;
+			pitch -= Input.GetAxis ("Mouse Y") * mouseSensitivity;
+		}
 		pitch = Mathf.Clamp (pitch, pitchMinMax.x, pitchMinMax.y);
 
 		currentRotation = Vector3.SmoothDamp (currentRotation, new Vector3 (pitch, yaw), ref rotationSmoothVelocity, rotationSmoothTime);
 		transform.eulerAngles = currentRotation;
 
 		transform.position = target.position - transform.forward * dstFromTarget;
+	}
+	public void CamUp(){
+		mouseY = 1.0f;
+	}
+
+	public void CamDown(){
+		mouseY = -1.0f;
+	}
+
+	public void CamLeft(){
+		mouseX = -1.0f;
+	}
+
+	public void CamRight(){
+		mouseX = 1.0f;
+	}
+
+	public void StopYaw(){
+		mouseX = 0.0f;
+	}
+
+	public void StopPitch(){
+		mouseY = 0.0f;
 	}
 }

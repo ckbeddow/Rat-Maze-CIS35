@@ -10,6 +10,10 @@ public class RatController : MonoBehaviour {
 	public float runSpeed = 6;
 	public float gravity = -9.8f;
 
+	//from Steve's MoveMe.cs
+	private float horizontal;
+	private float vertical;
+	public bool mobileControls = true; //true for now until we determine how to detect
 
 	public float turnSmoothTime = 0.2f;
 	float turnSmoothVelocity;
@@ -32,6 +36,10 @@ public class RatController : MonoBehaviour {
 		cameraT = Camera.main.transform;
 		controller = GetComponent<CharacterController> ();
 
+		//from Steve's 
+		horizontal = 0.0f;
+		vertical = 0.0f;
+
 		count = 0;
 		SetCountText ();
 		winText.text = "";
@@ -39,7 +47,13 @@ public class RatController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Vector2 input = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
+		Vector2 input;
+		if (mobileControls) {
+			input = new Vector2 (horizontal, vertical);
+		} else {
+			input = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
+		}
+
 		Vector2 inputDir = input.normalized;
 
 		if (inputDir != Vector2.zero) {
@@ -89,4 +103,27 @@ public class RatController : MonoBehaviour {
 		winText.text = "Zap! You died!";
 	}
 
+	public void MoveUp(){
+		vertical = 1.0f;
+	}
+
+	public void MoveDown(){
+		vertical = -1.0f;
+	}
+
+	public void MoveLeft(){
+		horizontal = -1.0f;
+	}
+
+	public void MoveRight(){
+		horizontal = 1.0f;
+	}
+
+	public void StopHorizontal(){
+		horizontal = 0.0f;
+	}
+
+	public void StopVertical(){
+		vertical = 0.0f;
+	}
 }
