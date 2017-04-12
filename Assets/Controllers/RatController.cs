@@ -9,6 +9,9 @@ public class RatController : MonoBehaviour {
 	public float walkSpeed = 2;
 	public float runSpeed = 6;
 	public float gravity = -9.8f;
+	// get attacthment to button
+
+	public ButtonControl controls;
 
 	//from Steve's MoveMe.cs
 	private float horizontal;
@@ -49,7 +52,10 @@ public class RatController : MonoBehaviour {
 	void Update () {
 		Vector2 input;
 		if (mobileControls) {
+			horizontal = controls.getHorizontal ();
+			vertical = controls.getVertical ();
 			input = new Vector2 (horizontal, vertical);
+			//get horr and get vert
 		} else {
 			input = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
 		}
