@@ -1,8 +1,19 @@
+4/12:
+	Created trigger for electric floor. Now recognizes when the player walks into it and displays a message that says "Zap! You died." 
+	Next: 	program dying animation for rat
+		remove trigger and floor when lever/key is activated
+
+4/4:
+ 	Fixed electricity lighting.
+
+3/25:
+	Added two basic levels
+
 3/10:
 	Added Rat Model. Added new ratcontroller and camera script for the new model. 
 	Created a new scene and maze text file called "ClassDemo". Also testing electric floor effects.
 
-3/9:
+3/8:
 	Added a lightning prefab. 
 
 2/13:
