@@ -28,6 +28,7 @@ public class RatController : MonoBehaviour {
 
 	public Text countText;
 	public Text winText;
+	public EndlessWorldController world;
 	int count;
 
 	CharacterController controller;
@@ -94,7 +95,11 @@ public class RatController : MonoBehaviour {
 		if (other.gameObject.CompareTag ("Pick Up")) {
 			other.gameObject.SetActive (false);
 			count = count + 1;
+			Debug.Log ("pickup");
+			world.newLevel ();
 			SetCountText ();
+
+
 		}
 	}
 

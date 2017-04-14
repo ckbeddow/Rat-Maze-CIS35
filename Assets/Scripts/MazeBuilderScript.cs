@@ -11,6 +11,15 @@ public class MazeBuilderScript : MonoBehaviour {
 	public TextAsset mazeTxt;
 	public bool BuildfromTxt;
 
+//	void Start() {
+//
+//		RandomMazeGenerator gen = new RandomMazeGenerator (dimensions);
+//		gen.build();
+//		mazeStr = gen.print ();
+//		BuildMaze ();
+//		SpawnMaze (myMaze );
+//	}
+
 
 	public void BuildMaze () {
 		myMaze = new Maze ();
@@ -26,10 +35,23 @@ public class MazeBuilderScript : MonoBehaviour {
 		SpawnMaze (myMaze);
 
 	}
+
+	public void BuildMaze (int dim, string maze) {
+		myMaze = new Maze ();
+		walls = Resources.LoadAll<GameObject> ("Halls");
+
+
+		myMaze.GenerateSimple(dim, maze);
+
+
+		SpawnMaze (myMaze);
+
+	}
 		
 	void SpawnMaze(Maze myMaze){
 		GameObject maze = new GameObject ();
 		maze.name = "Maze";
+		maze.tag = "maze";
 		foreach (Tile tile in myMaze.tiles) {
 			GameObject myWall = Instantiate (walls [tile.type]) as GameObject;
 			myWall.transform.position = new Vector3 (tile.x * 5, tile.y, tile.z * 5);
