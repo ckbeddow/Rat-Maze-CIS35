@@ -14,7 +14,8 @@ public class RatController : MonoBehaviour {
 
 	// get attacthment to button
 
-	public ButtonControl controls;
+	//public ButtonControl controls;
+	[SerializeField] VirtualJoystick controls;
 
 	//from Steve's MoveMe.cs
 	private float horizontal;
@@ -57,8 +58,10 @@ public class RatController : MonoBehaviour {
 		Vector2 input;
 		if (enabledControls) {
 			if (mobileControls) {
-				horizontal = controls.getHorizontal ();
-				vertical = controls.getVertical ();
+				//horizontal = controls.getHorizontal ();
+				//vertical = controls.getVertical ();
+				horizontal = controls.InputDirection.x;
+				vertical = controls.InputDirection.z;
 				input = new Vector2 (horizontal, vertical);
 				//get horr and get vert
 			} else {
