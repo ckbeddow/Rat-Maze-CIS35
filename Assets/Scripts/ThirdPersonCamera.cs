@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ThirdPersonCamera : MonoBehaviour {
 
+	public bool cameraControllEnabled = true;
 	public bool lockCursor;
 	public float mouseSensitivity = 10;
 	public Transform target;
@@ -32,20 +33,22 @@ public class ThirdPersonCamera : MonoBehaviour {
 		}
 	}
 	void LateUpdate () {
-		if (mobileControls) {
-			yaw += mouseX * mouseSensitivity;
-			pitch -= mouseY * mouseSensitivity;
-
-		} else {
-			yaw += Input.GetAxis ("Mouse X") * mouseSensitivity;
-			pitch -= Input.GetAxis ("Mouse Y") * mouseSensitivity;
+		if (cameraControllEnabled) {
+			if (mobileControls) {
+				yaw += mouseX * mouseSensitivity;
+				pitch -= mouseY * mouseSensitivity;
+			
+			} else {
+				yaw += Input.GetAxis ("Mouse X") * mouseSensitivity;
+				pitch -= Input.GetAxis ("Mouse Y") * mouseSensitivity;
+			}
+			pitch = Mathf.Clamp (pitch, pitchMinMax.x, pitchMinMax.y);
+			
+			currentRotation = Vector3.SmoothDamp (currentRotation, new Vector3 (pitch, yaw), ref rotationSmoothVelocity, rotationSmoothTime);
+			transform.eulerAngles = currentRotation;
+			
+			transform.position = target.position - transform.forward * dstFromTarget;
 		}
-		pitch = Mathf.Clamp (pitch, pitchMinMax.x, pitchMinMax.y);
-
-		currentRotation = Vector3.SmoothDamp (currentRotation, new Vector3 (pitch, yaw), ref rotationSmoothVelocity, rotationSmoothTime);
-		transform.eulerAngles = currentRotation;
-
-		transform.position = target.position - transform.forward * dstFromTarget;
 	}
 	public void CamUp(){
 		mouseY = 1.0f;

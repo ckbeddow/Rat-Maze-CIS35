@@ -9,6 +9,9 @@ public class RatController : MonoBehaviour {
 	public float walkSpeed = 2;
 	public float runSpeed = 6;
 	public float gravity = -9.8f;
+
+	public bool enabledControls = true; //used to stop control of rat during menues and splash screen [reduntant on mobile]
+
 	// get attacthment to button
 
 	public ButtonControl controls;
@@ -52,13 +55,17 @@ public class RatController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Vector2 input;
-		if (mobileControls) {
-			horizontal = controls.getHorizontal ();
-			vertical = controls.getVertical ();
-			input = new Vector2 (horizontal, vertical);
-			//get horr and get vert
+		if (enabledControls) {
+			if (mobileControls) {
+				horizontal = controls.getHorizontal ();
+				vertical = controls.getVertical ();
+				input = new Vector2 (horizontal, vertical);
+				//get horr and get vert
+			} else {
+				input = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
+			}
 		} else {
-			input = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
+			input = new Vector2 (0, 0);
 		}
 
 		Vector2 inputDir = input.normalized;
@@ -96,7 +103,7 @@ public class RatController : MonoBehaviour {
 			other.gameObject.SetActive (false);
 			count = count + 1;
 			Debug.Log ("pickup");
-			world.newLevel ();
+			world.onPickup ();
 			SetCountText ();
 
 
@@ -104,7 +111,7 @@ public class RatController : MonoBehaviour {
 	}
 
 	void SetCountText(){
-		countText.text = "Find the Cheese";
+		countText.text = count.ToString ();
 		if (count >= 1) {
 			winText.text = "You Win!";
 		}

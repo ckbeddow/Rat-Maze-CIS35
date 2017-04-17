@@ -7,13 +7,19 @@ public class EndlessWorldController : MonoBehaviour {
 	public int size;
 	public MazeBuilderScript builder;
 	public GameObject player;
+	public ThirdPersonCamera cameraControls;
 	private RandomMazeGenerator gen ;
+	public RatController playerControls;
+	public GameObject nextLevelPanel;
 
 	// Use this for initialization
 	void Start () {
 		gen = new RandomMazeGenerator (size);
 		gen.build ();
 		builder.BuildMaze (size, gen.print());
+
+		cameraControls.cameraControllEnabled = false;
+		playerControls.enabledControls = false;
 	
 	}
 	
@@ -25,10 +31,38 @@ public class EndlessWorldController : MonoBehaviour {
 	public void newLevel ()
 	{
 		Destroy (GameObject.FindWithTag ("maze"));
-		player.transform.position = (new Vector3 (-4, 0, 0));
+		//player.transform.position = (new Vector3 (-4, 0, 0));
 		gen = new RandomMazeGenerator (size);
 		gen.build ();
 		builder.BuildMaze (size, gen.print ());
 		Debug.Log ("spawning new level");
+	}
+
+	public void onCloseSplashScreen(){
+		cameraControls.cameraControllEnabled = true;
+		playerControls.enabledControls = true;
+	}
+
+	public void onOpenSplashScreen() {
+		cameraControls.cameraControllEnabled = false;
+		playerControls.enabledControls = false;
+	}
+
+	public void onPickup(){
+		onOpenSplashScreen();
+		nextLevelPanel.SetActive (true);
+		player.transform.position = (new Vector3 (-4, 0, 0));
+
+	}
+
+	public void nextLevel(){
+		Debug.Log ("next button pushed");
+		nextLevelPanel.SetActive (false);
+		newLevel ();
+		onCloseSplashScreen ();
+	}
+
+	public void backToMainMenu(){
+
 	}
 }

@@ -7,13 +7,17 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 0
     path: Assets/_Scenes/Minigame.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/Opening.unity
   - enabled: 0
     path: Assets/_Scenes/MazeRoller.unity
   - enabled: 0
     path: Assets/_Scenes/KeyBarrierExample.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/ClassDemo.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/Levels/Basic 1.0.unity
+  - enabled: 1
+    path: Assets/_Scenes/MainMenu.unity
+  - enabled: 1
+    path: Assets/_Scenes/EndlessMode.unity
