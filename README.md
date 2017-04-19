@@ -11,23 +11,21 @@ The player is an albino lab rat part of a cognitive psychology experiment. He fi
 
 ### Team Roles:
 #### Chuck:
-* Rat Design/Animation
-* Models
-* Scenery
-* Skybox
-* Lighting 
+* Rat Model/Animations
+* Maze/Level Generation
+* UI
 
 #### Clara: 
-* Level Design
-* Particle System
-* Interactive Obstacles
+* Electricy FX
+* Obstacle Mechanics
 * Obstacle Generator Algorithm (given time)
+* Timer
 
 #### Dave:
 * Sound Effects
-* Navigation/Movement
 * iOS Deployment
-* Opening GUI
+* Skybox
+* Textures/Materials
 
 ### Features:
 * Mouse Trap/Stuffed Mouse
