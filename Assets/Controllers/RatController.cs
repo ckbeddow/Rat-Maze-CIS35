@@ -30,6 +30,7 @@ public class RatController : MonoBehaviour {
 	float currentSpeed;
 	float velocityY;
 
+
 	public Text countText;
 	public Text winText;
 	public EndlessWorldController world;

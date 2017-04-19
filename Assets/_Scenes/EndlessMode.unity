@@ -847,7 +847,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4880324981017604, guid: 1e1a2e95063a2a349ba2f82e4fac2395, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4880324981017604, guid: 1e1a2e95063a2a349ba2f82e4fac2395, type: 2}
       propertyPath: m_LocalRotation.z
@@ -855,7 +855,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4880324981017604, guid: 1e1a2e95063a2a349ba2f82e4fac2395, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4880324981017604, guid: 1e1a2e95063a2a349ba2f82e4fac2395, type: 2}
       propertyPath: m_RootOrder
@@ -885,6 +885,10 @@ Prefab:
         type: 2}
       propertyPath: mobileControls
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880324981017604, guid: 1e1a2e95063a2a349ba2f82e4fac2395, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e1a2e95063a2a349ba2f82e4fac2395, type: 2}
@@ -2195,12 +2199,6 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224205656768161660, guid: 9582234b15172114cb5d6ab810bf69ad,
     type: 2}
   m_PrefabInternal: {fileID: 1844545771}
---- !u!114 &1759015414 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114627548298759876, guid: 9582234b15172114cb5d6ab810bf69ad,
-    type: 2}
-  m_PrefabInternal: {fileID: 1844545771}
-  m_Script: {fileID: 11500000, guid: 0cffa000aefe3bd45b643beebfb9ce1f, type: 3}
 --- !u!1001 &1844545771
 Prefab:
   m_ObjectHideFlags: 0
@@ -2317,6 +2315,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1.5009382
       objectReference: {fileID: 0}
+    - target: {fileID: 1332779996976200, guid: 9582234b15172114cb5d6ab810bf69ad, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9582234b15172114cb5d6ab810bf69ad, type: 2}
   m_IsPrefabParent: 0
@@ -2421,12 +2423,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraControllEnabled: 1
   lockCursor: 0
-  mouseSensitivity: 10
+  mouseSensitivity: 2.5
   target: {fileID: 1715978383}
   dstFromTarget: 2
   pitchMinMax: {x: 10, y: 85}
   mobileControls: 1
-  control: {fileID: 1759015414}
+  control: {fileID: 1454978023}
   rotationSmoothTime: 0.12
 --- !u!1 &2109188738
 GameObject:
