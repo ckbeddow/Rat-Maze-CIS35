@@ -28,6 +28,7 @@ public class RandomMazeGenerator {
 		}
 	}
 
+	//Prints a commma deliminated string containing the value of each tile
 	public string print(){
 		string output = "";
 		for (int i = 0; i < size; i++) {

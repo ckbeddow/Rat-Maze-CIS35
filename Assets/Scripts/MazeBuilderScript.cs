@@ -6,10 +6,12 @@ public class MazeBuilderScript : MonoBehaviour {
 
 	private GameObject[] walls;
 	private Maze myMaze;
+	private ElectricityGenerator obsGen;
 	public int dimensions;
 	public string mazeStr;
 	public TextAsset mazeTxt;
 	public bool BuildfromTxt;
+
 
 //	void Start() {
 //
@@ -23,13 +25,16 @@ public class MazeBuilderScript : MonoBehaviour {
 
 	public void BuildMaze () {
 		myMaze = new Maze ();
+		obsGen = new ElectricityGenerator ();
 		walls = Resources.LoadAll<GameObject> ("Halls");
 
 		if (BuildfromTxt) {
 			myMaze.GenerateFromTxt(mazeTxt);
 		}
-		else{
+		else {
 			myMaze.GenerateSimple(dimensions, mazeStr);
+			obsGen.Solve (dimensions, mazeStr);
+			obsGen.BestRoute ();
 		}
 
 		SpawnMaze (myMaze);
@@ -39,7 +44,6 @@ public class MazeBuilderScript : MonoBehaviour {
 	public void BuildMaze (int dim, string maze) {
 		myMaze = new Maze ();
 		walls = Resources.LoadAll<GameObject> ("Halls");
-
 
 		myMaze.GenerateSimple(dim, maze);
 

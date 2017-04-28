@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114351343887879946}
   m_Layer: 0
   m_Name: Lever
-  m_TagString: Untagged
+  m_TagString: Lever
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,5 +105,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1076778652747286, guid: 1e1a2e95063a2a349ba2f82e4fac2395, type: 2}
-  floor: {fileID: 1554652921000876, guid: b06a41a6b0ab3421f9581361cea6e3dc, type: 2}
+  floor: {fileID: 0}
   time: 7

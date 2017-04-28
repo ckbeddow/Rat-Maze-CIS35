@@ -5,8 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Pick Up
-  - Electric
   - maze
+  - Lever
+  - ElectricTrigger
   layers:
   - Default
   - TransparentFX
