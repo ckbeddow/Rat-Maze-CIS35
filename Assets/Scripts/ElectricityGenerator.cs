@@ -12,8 +12,11 @@ public class ElectricityGenerator : MonoBehaviour {
 
 	public int dimensions;
 	public Node[] nodes;
+	public Node[] solution;
 
+	// Solve called in MazeBuilder Script
 	public void Solve(int dim, String mazeStr) {
+		Debug.Log ("Attempting to solve.");
 		dimensions = dim;
 		nodes = new Node[dimensions * dimensions];
 		int[] maze = Array.ConvertAll (mazeStr.Split (','), int.Parse);
@@ -22,6 +25,7 @@ public class ElectricityGenerator : MonoBehaviour {
 			AdjacencyList (i);
 		}
 		BreadthFirstSearch ();
+		BestRoute ();
 	}
 
 	public void BreadthFirstSearch() {
@@ -31,6 +35,7 @@ public class ElectricityGenerator : MonoBehaviour {
 		queue.Enqueue (nodes [0]);
 		while (queue.Peek () != null) {
 			Node temp = queue.Dequeue ();
+			Debug.Log (temp.index);
 			while (temp.adjacent.Peek () != null) {
 				Node adj = temp.adjacent.Pop ();
 				if (!adj.seen) {
@@ -44,19 +49,20 @@ public class ElectricityGenerator : MonoBehaviour {
 	}
 
 	public void BestRoute() {
-		Stack<Node> path = new Stack<Node> ();
+		Stack<Node> path= new Stack<Node> ();
 		string output = "";
 		path.Push (nodes[nodes.Length-1]);
+		solution = new Node[path.Peek().distance];
 		while (path.Peek ().parent != null)
 			path.Push (path.Peek ().parent);
 		while (path.Count != 0) {
-			int i = path.Pop ().index;
-			int x = i % dimensions;
-			int y = i / dimensions;
-			output = output + "(" + x + ", " + y + "); ";
+			Node i = nodes[path.Pop ().index];
+			solution [i.distance] = i;
+			output = output + "(" + i.index % dimensions + ", " + i.index / dimensions + "); ";
 		}
 		Debug.Log(output);
 	}
+
 
 	public void AdjacencyList(int i) {
 		// Right
@@ -76,16 +82,17 @@ public class ElectricityGenerator : MonoBehaviour {
 	private bool GetBit(int number, int value) {
 		return ((number & value) == number);
 	}
-		
-	public void generateObstacle() {
-		// new Code
-		// picking coordinates 1/3 - 1/2 of distance from start
-		// picking coordinates for level at same side of start
+
+	//Selects a random node in solution some distance away from start and before the end
+	//Currently set to be a least 1/3 of the distance away from start.
+	public void GenerateObstacle() {
+		Node random = solution[UnityEngine.Random.Range (solution.Length/3, solution.Length-1)];
+		_floorX = random.index % dimensions;
+		_floorY = random.index / dimensions;
 	}
 
 	public int[] getFloor() {
 		int [] coordinates = new int[2];
-		//
 		coordinates[0] = _floorX;
 		coordinates[1] = _floorY;
 		return coordinates;

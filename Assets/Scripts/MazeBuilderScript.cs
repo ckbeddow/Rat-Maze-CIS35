@@ -34,7 +34,7 @@ public class MazeBuilderScript : MonoBehaviour {
 		else {
 			myMaze.GenerateSimple(dimensions, mazeStr);
 			obsGen.Solve (dimensions, mazeStr);
-			obsGen.BestRoute ();
+			obsGen.GenerateObstacle ();
 		}
 
 		SpawnMaze (myMaze);
