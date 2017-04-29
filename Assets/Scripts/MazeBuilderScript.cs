@@ -25,7 +25,6 @@ public class MazeBuilderScript : MonoBehaviour {
 
 	public void BuildMaze () {
 		myMaze = new Maze ();
-		obsGen = new ElectricityGenerator ();
 		walls = Resources.LoadAll<GameObject> ("Halls");
 
 		if (BuildfromTxt) {
@@ -33,8 +32,6 @@ public class MazeBuilderScript : MonoBehaviour {
 		}
 		else {
 			myMaze.GenerateSimple(dimensions, mazeStr);
-			obsGen.Solve (dimensions, mazeStr);
-			obsGen.GenerateObstacle ();
 		}
 
 		SpawnMaze (myMaze);
@@ -42,14 +39,16 @@ public class MazeBuilderScript : MonoBehaviour {
 	}
 
 	public void BuildMaze (int dim, string maze) {
+		obsGen = new ElectricityGenerator ();
 		myMaze = new Maze ();
 		walls = Resources.LoadAll<GameObject> ("Halls");
 
 		myMaze.GenerateSimple(dim, maze);
-
-
 		SpawnMaze (myMaze);
 
+		obsGen.Solve (dim, maze);
+		obsGen.GenerateObstacle ();
+		SpawnObstacles (obsGen);
 	}
 		
 	void SpawnMaze(Maze myMaze){
@@ -61,5 +60,12 @@ public class MazeBuilderScript : MonoBehaviour {
 			myWall.transform.position = new Vector3 (tile.x * 5, tile.y, tile.z * 5);
 			myWall.transform.parent = maze.transform;
 		}
+	}
+
+	void SpawnObstacles(ElectricityGenerator myObs) {
+		GameObject floor = Instantiate (Resources.Load<GameObject> ("Electric Floor")) as GameObject;
+		floor.name = "Electric Floor";
+		floor.tag = "ElectricFloor";
+		floor.transform.position = new Vector3(myObs.getFloor ()[0], 0, myObs.getFloor ()[1]);
 	}
 }
