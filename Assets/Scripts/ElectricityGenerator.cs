@@ -5,8 +5,10 @@ using System;
 
 public class ElectricityGenerator : MonoBehaviour {
 
-	private int _floorX = 0;
-	private int _floorY = 0;
+	private int _floorPositionX = 0;
+	private int _floorPositionZ = 0;
+	private int _floorAngleY = 0;
+
 	private int _leverX= 0;
 	private int _leverY = 0;
 
@@ -23,7 +25,7 @@ public class ElectricityGenerator : MonoBehaviour {
 			nodes [i] = new Node (i, maze [i]);
 		}
 		BreadthFirstSearch ();
-		BestRoute ();
+		solution = BestRoute ();
 	}
 
 	public void BreadthFirstSearch() {
@@ -46,29 +48,36 @@ public class ElectricityGenerator : MonoBehaviour {
 		}
 	}
 		
-	public void BestRoute() {
+	public Node[] BestRoute() {
 		Stack<Node> path= new Stack<Node> ();
-		string output = "";
 		path.Push (nodes[nodes.Length-1]);
-		solution = new Node[path.Peek().distance+1];
+		Node[] route = new Node[path.Peek().distance+1];
 		while (path.Peek ().parent != null)
 			path.Push (path.Peek ().parent);
-		while (path.Count != 0) {
-			Node i = nodes[path.Pop ().index];
-			solution [i.distance] = i;
-			output = output + "(" + i.index % dimensions + ", " + i.index / dimensions + ") ";
-		}
-		Debug.Log(output);
+		while (path.Count != 0)
+			route [path.Peek().distance] = path.Pop();
+		return route;
 	}
 
 	//Selects a random node in solution some distance away from start and before the end
-	//Currently set to be a least 1/3 of the distance away from start.
-	public void GenerateObstacle() {
-		Node random = solution[UnityEngine.Random.Range (solution.Length/3, solution.Length-1)];
-		_floorX = random.index % dimensions;
-		_floorY = random.index / dimensions;
-		Debug.Log ("Floor at (" + _floorX + ", " + _floorY + ")");
-		//GenerateLever ();
+	//Currently set to be at least a distance of "dimensions" away from start
+	public bool GenerateObstacle() {
+		List<Node> legalObs = new List<Node> ();
+		for (int i = dimensions-1; i < solution.Length; i++) {
+			if (UpWall (solution[i].type) && DownWall (solution[i].type))
+				legalObs.Add(solution[i]);
+			else if (RightWall (solution[i].type) && LeftWall (solution[i].type))
+				legalObs.Add(solution[i]);
+		}
+		if (legalObs.Count == 0)
+			return false;
+		Node random = legalObs[(UnityEngine.Random.Range (0, legalObs.Count-1))];
+		_floorPositionX = random.index % dimensions;
+		_floorPositionZ = random.index / dimensions;
+		if (UpWall (random.type) && DownWall (random.type))
+			_floorAngleY = 90;
+		Debug.Log ("Floor at (" + _floorPositionX + ", " + _floorPositionZ + ")");
+		return true;
 	}
 		
 	public void GenerateLever() {
@@ -79,9 +88,10 @@ public class ElectricityGenerator : MonoBehaviour {
 
 	// Not done
 	public int[] getFloor() {
-		int [] coordinates = new int[2];
-		coordinates[0] = _floorX * 5;
-		coordinates[1] = -_floorY * 5;
+		int [] coordinates = new int[3];
+		coordinates[0] = _floorPositionX * 5;
+		coordinates[1] = -_floorPositionZ * 5;
+		coordinates [2] = _floorAngleY;
 		return coordinates;
 	}
 		
@@ -94,24 +104,35 @@ public class ElectricityGenerator : MonoBehaviour {
 
 	public void AdjacencyList(int i) {
 		// Right
-		if (!GetBit (1, nodes [i].type) && (i + 1) % dimensions != 0) {
+		if (!RightWall(nodes [i].type) && (i+1)%dimensions != 0) {
 			nodes [i].adjacent.Push (nodes [i + 1]);
 		}
 		// Down
-		if(!GetBit(2, nodes[i].type) && i+dimensions < nodes.Length)
+		if(!DownWall(nodes[i].type) && i+dimensions < nodes.Length)
 			nodes[i].adjacent.Push(nodes[i+dimensions]);
 		// Left
-		if(!GetBit(4, nodes[i].type) && i%dimensions != 0)
+		if(!LeftWall(nodes[i].type) && i%dimensions != 0)
 			nodes[i].adjacent.Push(nodes[i-1]);
 		// UP
-		if(!GetBit(8, nodes[i].type) && i-dimensions >= 0)
+		if(!UpWall(nodes[i].type) && i-dimensions >= 0)
 			nodes[i].adjacent.Push(nodes[i-dimensions]);
 	}
-
-	private bool GetBit(int number, int value) {
-		return ((number & value) == number);
+					
+	private bool RightWall(int value) {
+		return ((1 & value) == 1);
 	}
-		
+
+	private bool DownWall(int value) {
+		return ((2 & value) == 2);
+	}
+
+	private bool LeftWall(int value) {
+		return ((4 & value) == 4);
+	}
+
+	private bool UpWall(int value) {
+		return ((8 & value) == 8);
+	}
 }
 
 // Helper class for maze solving
@@ -134,15 +155,3 @@ public class Node {
 	public Stack<Node> adjacent;
 
 }
-
-
-
-//IN THE CONTROLLER(S)
-/**
-	BFS obsgen;
-	obsgen.Solve(dim,  mazeStr);
-	obsgen.generateObstacle();
-
-	instantiate electricfloor Attribute obsgen.GetFloor()[0], obsgen.GetFloor()[1];
-	instantiate electriclever Attribute obsgen.GetFloor()[0], obsgen.GetFloor()[1];
-*/

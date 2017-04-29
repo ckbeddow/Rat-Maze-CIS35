@@ -8,6 +8,7 @@ public class ElectricFloor : MonoBehaviour {
 
 	// Use this for initialization
 	void OnTriggerEnter(Collider other) {
+		player = GameObject.FindWithTag ("Player");
 		player.SendMessage ("Die");
 	}
 }

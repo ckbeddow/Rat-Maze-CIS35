@@ -30,11 +30,11 @@ public class RatController : MonoBehaviour {
 	float currentSpeed;
 	float velocityY;
 
-
 	public Text countText;
 	public Text winText;
 	public EndlessWorldController world;
 	int count;
+
 
 	CharacterController controller;
 	Animator animator;
@@ -109,8 +109,6 @@ public class RatController : MonoBehaviour {
 			Debug.Log ("pickup");
 			world.onPickup ();
 			SetCountText ();
-
-
 		}
 	}
 
