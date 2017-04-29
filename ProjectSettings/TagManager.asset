@@ -8,6 +8,7 @@ TagManager:
   - maze
   - Lever
   - ElectricTrigger
+  - ElectricFloor
   layers:
   - Default
   - TransparentFX
