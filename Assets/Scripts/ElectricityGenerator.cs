@@ -13,22 +13,22 @@ public class ElectricityGenerator : MonoBehaviour {
 	private int _leverY = 0;
 
 	public int dimensions;
-	public Node[] nodes;
+	List<Node> nodes;
 	public Node[] solution;
 
 	// Solve called in MazeBuilder Script
 	public void Solve(int dim, String mazeStr) {
 		dimensions = dim;
-		nodes = new Node[dimensions * dimensions];
+		nodes = new List<Node> ();
 		int[] maze = Array.ConvertAll (mazeStr.Split (','), int.Parse);
-		for (int i = 0; i < nodes.Length; i++) {
-			nodes [i] = new Node (i, maze [i]);
+		for (int i = 0; i < maze.Length; i++) {
+			nodes.Add(new Node (i, maze [i]));
 		}
-		BreadthFirstSearch ();
+		BreadthFirstSearch (nodes);
 		solution = BestRoute ();
 	}
 
-	public void BreadthFirstSearch() {
+	public void BreadthFirstSearch(List<Node> nodes) {
 		Queue<Node> queue = new Queue<Node> ();
 		nodes [0].seen = true;
 		nodes [0].distance = 0;
@@ -42,15 +42,19 @@ public class ElectricityGenerator : MonoBehaviour {
 					adj.seen = true;
 					adj.distance = temp.distance + 1;
 					adj.parent = temp;
+					adj.parent.children.Add (adj);
 					queue.Enqueue (adj);
 				}
 			}
+			Debug.Log ("Index: "+temp.index+" Parent: "+temp.parent);
+			for (int i = 0; i < temp.children.Count; i++)
+				Debug.Log ("Child at " + temp.children [i].index);
 		}
 	}
 		
 	public Node[] BestRoute() {
 		Stack<Node> path= new Stack<Node> ();
-		path.Push (nodes[nodes.Length-1]);
+		path.Push (nodes[nodes.Count-1]);
 		Node[] route = new Node[path.Peek().distance+1];
 		while (path.Peek ().parent != null)
 			path.Push (path.Peek ().parent);
@@ -60,17 +64,20 @@ public class ElectricityGenerator : MonoBehaviour {
 	}
 
 	//Selects a random node in solution some distance away from start and before the end
-	//Currently set to be at least a distance of "dimensions" away from start
 	public bool GenerateObstacle() {
 		List<Node> legalObs = new List<Node> ();
+		//Currently set to be at least a distance of "dimensions" away from start
 		for (int i = dimensions-1; i < solution.Length; i++) {
 			if (UpWall (solution[i].type) && DownWall (solution[i].type))
 				legalObs.Add(solution[i]);
 			else if (RightWall (solution[i].type) && LeftWall (solution[i].type))
 				legalObs.Add(solution[i]);
 		}
+		Debug.Log (legalObs.Count);
+		for (int i = 0; i < legalObs.Count; i++)
+			Debug.Log ("Legal floor at: " + legalObs [i].index);
 		if (legalObs.Count == 0)
-			return false;
+			return false; //there were no legal electric floors
 		Node random = legalObs[(UnityEngine.Random.Range (0, legalObs.Count-1))];
 		_floorPositionX = random.index % dimensions;
 		_floorPositionZ = random.index / dimensions;
@@ -108,7 +115,7 @@ public class ElectricityGenerator : MonoBehaviour {
 			nodes [i].adjacent.Push (nodes [i + 1]);
 		}
 		// Down
-		if(!DownWall(nodes[i].type) && i+dimensions < nodes.Length)
+		if(!DownWall(nodes[i].type) && i+dimensions < nodes.Count)
 			nodes[i].adjacent.Push(nodes[i+dimensions]);
 		// Left
 		if(!LeftWall(nodes[i].type) && i%dimensions != 0)
@@ -145,6 +152,7 @@ public class Node {
 		this.distance = -1;
 		this.seen = false;
 		this.adjacent = new Stack<Node>();
+		this.children = new List<Node> ();
 	}
 
 	public int index;
@@ -153,5 +161,6 @@ public class Node {
 	public int distance;
 	public bool seen;
 	public Stack<Node> adjacent;
+	public List<Node> children;
 
 }

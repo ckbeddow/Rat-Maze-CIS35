@@ -47,7 +47,7 @@ public class MazeBuilderScript : MonoBehaviour {
 		SpawnMaze (myMaze);
 
 		obsGen.Solve (dim, maze);
-		if(obsGen.GenerateObstacle ());
+		if(obsGen.GenerateObstacle ())
 			SpawnObstacles (obsGen);
 	}
 		
