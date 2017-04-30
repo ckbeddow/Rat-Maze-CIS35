@@ -47,8 +47,10 @@ public class MazeBuilderScript : MonoBehaviour {
 		SpawnMaze (myMaze);
 
 		obsGen.Solve (dim, maze);
-		if(obsGen.GenerateObstacle ())
-			SpawnObstacles (obsGen);
+		if (obsGen.GenerateObstacle ()) {
+			obsGen.GenerateLever ();
+			SpawnObstacle (obsGen);
+		}
 	}
 		
 	void SpawnMaze(Maze myMaze){
@@ -62,12 +64,17 @@ public class MazeBuilderScript : MonoBehaviour {
 		}
 	}
 
-	void SpawnObstacles(ElectricityGenerator myObs) {
+	void SpawnObstacle(ElectricityGenerator myObs) {
 		GameObject floor = Instantiate (Resources.Load<GameObject> ("Electric Floor")) as GameObject;
 		floor.name = "Electric Floor";
 		floor.tag = "ElectricFloor";
 		floor.transform.position = new Vector3(myObs.getFloor ()[0], 0, myObs.getFloor ()[1]);
 		floor.transform.Rotate (0, myObs.getFloor () [2], 0);
-		//obs.GenerateLever();
+
+		GameObject lever = Instantiate (Resources.Load<GameObject> ("LeverTile")) as GameObject;
+		lever.name = "Lever Tile";
+		lever.transform.parent = floor.transform;
+		lever.transform.position = new Vector3 (myObs.getLever()[0], 0, myObs.getLever()[1]);
+		lever.transform.Rotate (0, myObs.getLever () [2], 0);
 	}
 }

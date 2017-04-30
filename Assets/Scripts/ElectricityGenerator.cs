@@ -9,8 +9,9 @@ public class ElectricityGenerator : MonoBehaviour {
 	private int _floorPositionZ = 0;
 	private int _floorAngleY = 0;
 
-	private int _leverX= 0;
-	private int _leverY = 0;
+	private int _leverPositionX= 0;
+	private int _leverPositionZ = 0;
+	private int _leverAnglyY = 0;
 
 	public int dimensions;
 	List<Node> nodes;
@@ -24,11 +25,11 @@ public class ElectricityGenerator : MonoBehaviour {
 		for (int i = 0; i < maze.Length; i++) {
 			nodes.Add(new Node (i, maze [i]));
 		}
-		BreadthFirstSearch (nodes);
+		BreadthFirstSearch ();
 		solution = BestRoute ();
 	}
 
-	public void BreadthFirstSearch(List<Node> nodes) {
+	public void BreadthFirstSearch() {
 		Queue<Node> queue = new Queue<Node> ();
 		nodes [0].seen = true;
 		nodes [0].distance = 0;
@@ -46,9 +47,6 @@ public class ElectricityGenerator : MonoBehaviour {
 					queue.Enqueue (adj);
 				}
 			}
-			Debug.Log ("Index: "+temp.index+" Parent: "+temp.parent);
-			for (int i = 0; i < temp.children.Count; i++)
-				Debug.Log ("Child at " + temp.children [i].index);
 		}
 	}
 		
@@ -67,15 +65,12 @@ public class ElectricityGenerator : MonoBehaviour {
 	public bool GenerateObstacle() {
 		List<Node> legalObs = new List<Node> ();
 		//Currently set to be at least a distance of "dimensions" away from start
-		for (int i = dimensions-1; i < solution.Length; i++) {
+		for (int i = legalStart(); i < solution.Length; i++) {
 			if (UpWall (solution[i].type) && DownWall (solution[i].type))
 				legalObs.Add(solution[i]);
 			else if (RightWall (solution[i].type) && LeftWall (solution[i].type))
 				legalObs.Add(solution[i]);
 		}
-		Debug.Log (legalObs.Count);
-		for (int i = 0; i < legalObs.Count; i++)
-			Debug.Log ("Legal floor at: " + legalObs [i].index);
 		if (legalObs.Count == 0)
 			return false; //there were no legal electric floors
 		Node random = legalObs[(UnityEngine.Random.Range (0, legalObs.Count-1))];
@@ -89,8 +84,8 @@ public class ElectricityGenerator : MonoBehaviour {
 		
 	public void GenerateLever() {
 		// Willl have to then select a dead-end in same set as "start" for the lever
-		_leverX = 0;
-		_leverY = 0;
+		_leverPositionX = 0;
+		_leverPositionZ = 0;
 	}
 
 	// Not done
@@ -103,13 +98,21 @@ public class ElectricityGenerator : MonoBehaviour {
 	}
 		
 	public int[] getLever() {
-		int [] coordinates = new int[2];
-		coordinates[0] = _leverX;
-		coordinates[1] = _leverY;
+		int [] coordinates = new int[3];
+		coordinates[0] = _leverPositionX;
+		coordinates[1] = _leverPositionZ;
+		coordinates [2] = _leverAnglyY;
 		return coordinates;
 	}
 
-	public void AdjacencyList(int i) {
+	private int legalStart() {
+		for (int i = 0; i < solution.Length; i++)
+			if (solution [i].children.Count >= 2)
+				return i + 1;
+		return solution.Length;
+	}
+
+	private void AdjacencyList(int i) {
 		// Right
 		if (!RightWall(nodes [i].type) && (i+1)%dimensions != 0) {
 			nodes [i].adjacent.Push (nodes [i + 1]);
