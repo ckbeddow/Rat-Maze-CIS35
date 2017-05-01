@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class LeverPress : MonoBehaviour {
 
+	[SerializeField] public AudioSource floorSound;
+	[SerializeField] public AudioClip powerUp;
+	[SerializeField] public AudioClip powerDown;
+
 	public GameObject floor;
 	private float time = 1.5f;
 	public int distance = 0;
@@ -16,9 +20,11 @@ public class LeverPress : MonoBehaviour {
 	}
 
 	IEnumerator ShutOff() {
+		floorSound.PlayOneShot (powerDown);
 		floor.SetActive (false);
 		Debug.Log ("Waiting " + time * distance + " seconds...");
 		yield return new WaitForSeconds (time*distance);
+		floorSound.PlayOneShot (powerUp);
 		floor.SetActive (true);
 	}
 

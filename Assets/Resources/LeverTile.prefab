@@ -133,6 +133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5561aefffa1e145e0bc4b3afbf479d3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1076778652747286, guid: 1e1a2e95063a2a349ba2f82e4fac2395, type: 2}
+  floorSound: {fileID: 0}
+  powerUp: {fileID: 8300000, guid: 83793ad90d65d41eda3803ce40fde6af, type: 3}
+  powerDown: {fileID: 8300000, guid: f1c1aaa754638474087044d27cade8bd, type: 3}
   floor: {fileID: 0}
-  time: 7
+  distance: 0
