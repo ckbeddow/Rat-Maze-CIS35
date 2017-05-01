@@ -26,7 +26,7 @@ public class ElectricityGenerator : MonoBehaviour {
 			nodes.Add(new Node (i, maze [i]));
 		}
 		BreadthFirstSearch ();
-		solution = BestRoute ();
+		solution = BestRoute (nodes.Count-1);
 	}
 
 	public void BreadthFirstSearch() {
@@ -43,73 +43,11 @@ public class ElectricityGenerator : MonoBehaviour {
 					adj.seen = true;
 					adj.distance = temp.distance + 1;
 					adj.parent = temp;
-					adj.parent.children.Add (adj);
+					adj.parent.children.Push (adj);
 					queue.Enqueue (adj);
 				}
 			}
 		}
-	}
-		
-	public Node[] BestRoute() {
-		Stack<Node> path= new Stack<Node> ();
-		path.Push (nodes[nodes.Count-1]);
-		Node[] route = new Node[path.Peek().distance+1];
-		while (path.Peek ().parent != null)
-			path.Push (path.Peek ().parent);
-		while (path.Count != 0)
-			route [path.Peek().distance] = path.Pop();
-		return route;
-	}
-
-	//Selects a random node in solution some distance away from start and before the end
-	public bool GenerateObstacle() {
-		List<Node> legalObs = new List<Node> ();
-		//Currently set to be at least a distance of "dimensions" away from start
-		for (int i = legalStart(); i < solution.Length; i++) {
-			if (UpWall (solution[i].type) && DownWall (solution[i].type))
-				legalObs.Add(solution[i]);
-			else if (RightWall (solution[i].type) && LeftWall (solution[i].type))
-				legalObs.Add(solution[i]);
-		}
-		if (legalObs.Count == 0)
-			return false; //there were no legal electric floors
-		Node random = legalObs[(UnityEngine.Random.Range (0, legalObs.Count-1))];
-		_floorPositionX = random.index % dimensions;
-		_floorPositionZ = random.index / dimensions;
-		if (UpWall (random.type) && DownWall (random.type))
-			_floorAngleY = 90;
-		Debug.Log ("Floor at (" + _floorPositionX + ", " + _floorPositionZ + ")");
-		return true;
-	}
-		
-	public void GenerateLever() {
-		// Willl have to then select a dead-end in same set as "start" for the lever
-		_leverPositionX = 0;
-		_leverPositionZ = 0;
-	}
-
-	// Not done
-	public int[] getFloor() {
-		int [] coordinates = new int[3];
-		coordinates[0] = _floorPositionX * 5;
-		coordinates[1] = -_floorPositionZ * 5;
-		coordinates [2] = _floorAngleY;
-		return coordinates;
-	}
-		
-	public int[] getLever() {
-		int [] coordinates = new int[3];
-		coordinates[0] = _leverPositionX;
-		coordinates[1] = _leverPositionZ;
-		coordinates [2] = _leverAnglyY;
-		return coordinates;
-	}
-
-	private int legalStart() {
-		for (int i = 0; i < solution.Length; i++)
-			if (solution [i].children.Count >= 2)
-				return i + 1;
-		return solution.Length;
 	}
 
 	private void AdjacencyList(int i) {
@@ -126,6 +64,105 @@ public class ElectricityGenerator : MonoBehaviour {
 		// UP
 		if(!UpWall(nodes[i].type) && i-dimensions >= 0)
 			nodes[i].adjacent.Push(nodes[i-dimensions]);
+	}
+		
+	public Node[] BestRoute(int end) {
+		Stack<Node> path= new Stack<Node> ();
+		path.Push (nodes[end]);
+		Node[] route = new Node[path.Peek().distance+1];
+		while (path.Peek ().parent != null)
+			path.Push (path.Peek ().parent);
+		while (path.Count != 0)
+			route [path.Peek().distance] = path.Pop();
+		return route;
+	}
+		
+	public bool GenerateFloor() {
+		Node floor = randomFloor ();
+		if (floor == null)
+			return false;
+		if (!GenerateLever (floor))
+			return false;
+		_floorPositionX = floor.index % dimensions;
+		_floorPositionZ = floor.index / dimensions;
+		Debug.Log ("Floor at (" + _floorPositionX + ", " + _floorPositionZ + ")");
+		if (UpWall (floor.type) && DownWall (floor.type))
+			_floorAngleY = 90;
+		return true;
+	}
+
+	public int[] getFloor() {
+		int [] coordinates = new int[3];
+		coordinates[0] = _floorPositionX * 5;
+		coordinates[1] = -_floorPositionZ * 5;
+		coordinates [2] = _floorAngleY;
+		return coordinates;
+	}
+
+	private Node randomFloor() {
+		List<Node> legalObs = new List<Node> ();
+		for (int i = legalObsStart(); i < solution.Length; i++) {
+			if (UpWall (solution[i].type) && DownWall (solution[i].type))
+				legalObs.Add(solution[i]);
+			else if (RightWall (solution[i].type) && LeftWall (solution[i].type))
+				legalObs.Add(solution[i]);
+		}
+		if (legalObs.Count == 0)
+			return null;
+		return legalObs[(UnityEngine.Random.Range (0, legalObs.Count-1))];
+	}
+
+	private int legalObsStart() {
+		for (int i = 0; i < solution.Length; i++)
+			if (solution [i].children.Count >= 2)
+				return i + 1;
+		return solution.Length;
+	}
+
+	public bool GenerateLever(Node floor) {
+		Node lever = randomLever (floor);
+		if (lever == null)
+			return false;
+		_leverPositionX = lever.index % dimensions;
+		_leverPositionZ = lever.index / dimensions;
+		Debug.Log ("Floor at (" + _leverPositionX + ", " + _leverPositionZ + ")");
+		if (!DownWall (floor.type))
+			_floorAngleY = 90;
+		else if (!RightWall (floor.type))
+			_floorAngleY = 180;
+		else if (!UpWall (floor.type))
+			_floorAngleY = -90;
+		return true;
+	}
+
+	public int[] getLever() {
+		int [] coordinates = new int[3];
+		coordinates[0] = _leverPositionX * 5;
+		coordinates[1] = -_leverPositionZ * 5;
+		coordinates [2] = _leverAnglyY;
+		return coordinates;
+	}
+
+	private Node randomLever(Node floor) {
+		List<Node> deadEnds = new List<Node> ();
+		Queue<Node> queue = new Queue<Node> ();
+		floor.obsSeen = true;
+		queue.Enqueue (floor.parent);
+		while(queue.Count != 0) {
+			Node temp = queue.Dequeue ();
+			temp.obsSeen = true;
+			if(temp.parent != null && !temp.parent.obsSeen)
+				queue.Enqueue (temp.parent);
+			if (temp.children.Count == 0)
+				deadEnds.Add(temp);
+			while (temp.children.Count != 0) {
+				if (temp.children.Peek().obsSeen)
+					temp.children.Pop ();
+				else
+					queue.Enqueue (temp.children.Pop ());	
+			}
+		}
+		return deadEnds[(UnityEngine.Random.Range (0, deadEnds.Count-1))];
 	}
 					
 	private bool RightWall(int value) {
@@ -155,7 +192,9 @@ public class Node {
 		this.distance = -1;
 		this.seen = false;
 		this.adjacent = new Stack<Node>();
-		this.children = new List<Node> ();
+		this.children = new Stack<Node> ();
+		this.obsDistance = -1;
+		this.obsSeen = false;
 	}
 
 	public int index;
@@ -163,7 +202,9 @@ public class Node {
 	public Node parent;
 	public int distance;
 	public bool seen;
-	public Stack<Node> adjacent;
-	public List<Node> children;
 
+	public Stack<Node> adjacent;
+	public Stack<Node> children;
+	public int obsDistance;
+	public bool obsSeen;
 }
