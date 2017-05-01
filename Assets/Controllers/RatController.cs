@@ -45,6 +45,7 @@ public class RatController : MonoBehaviour {
 	public EndlessWorldController world;
 	int count;
 
+	[SerializeField] GameObject deathScreen;
 
 	CharacterController controller;
 	Animator animator;
@@ -142,13 +143,21 @@ public class RatController : MonoBehaviour {
 		}
 	}
 
-	void Die() {
+	IEnumerator Die() {
 		ratNoise.PlayOneShot (zap);
 		enabledControls = false;
 		animator.SetBool ("isDead", true);
 		enabledControls = false;
+		yield return new WaitForSeconds (1.5f);
+		deathScreen.SetActive (true);
+
 
 		//winText.text = "Zap! You died!";
+	}
+
+	void Reset() {
+		animator.SetBool ("isDead", false);
+		enabledControls = true;
 	}
 
 	public void MoveUp(){

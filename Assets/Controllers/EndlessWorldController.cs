@@ -64,6 +64,10 @@ public class EndlessWorldController : MonoBehaviour {
 		onCloseSplashScreen ();
 	}
 
+	public void reset(){
+		player.transform.position = (new Vector3 (-4, 0, 0));
+		player.SendMessage ("Reset");
+	}
 	public void backToMainMenu(){
 
 	}
