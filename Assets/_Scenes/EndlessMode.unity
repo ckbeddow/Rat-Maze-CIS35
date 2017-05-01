@@ -890,6 +890,31 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114423150570279898, guid: 1e1a2e95063a2a349ba2f82e4fac2395,
+        type: 2}
+      propertyPath: ratNoise
+      value: 
+      objectReference: {fileID: 1715978381}
+    - target: {fileID: 114423150570279898, guid: 1e1a2e95063a2a349ba2f82e4fac2395,
+        type: 2}
+      propertyPath: scamper
+      value: 
+      objectReference: {fileID: 8300000, guid: 4978369be1c7447a094de657e79e9fec, type: 3}
+    - target: {fileID: 114423150570279898, guid: 1e1a2e95063a2a349ba2f82e4fac2395,
+        type: 2}
+      propertyPath: squeak
+      value: 
+      objectReference: {fileID: 8300000, guid: 7fe93e382acfa49a3b822693f06efb86, type: 3}
+    - target: {fileID: 114423150570279898, guid: 1e1a2e95063a2a349ba2f82e4fac2395,
+        type: 2}
+      propertyPath: zap
+      value: 
+      objectReference: {fileID: 8300000, guid: 2fc401eabc9fe4d768ddd1180923c774, type: 3}
+    - target: {fileID: 114423150570279898, guid: 1e1a2e95063a2a349ba2f82e4fac2395,
+        type: 2}
+      propertyPath: success
+      value: 
+      objectReference: {fileID: 8300000, guid: 668347619644a4c7e8803b69457eb326, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e1a2e95063a2a349ba2f82e4fac2395, type: 2}
   m_IsPrefabParent: 0
@@ -2380,11 +2405,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7fe93e382acfa49a3b822693f06efb86, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2444,7 +2469,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0

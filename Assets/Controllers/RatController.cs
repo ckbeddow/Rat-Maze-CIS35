@@ -6,13 +6,23 @@ using UnityEngine.UI;
 public class RatController : MonoBehaviour {
 
 	public bool alwaysRun = false;
+	public bool playedScamper = false;
+	public bool playedSqueak = false;
 	public float walkSpeed = 2;
 	public float runSpeed = 6;
 	public float gravity = -9.8f;
 
 	public bool enabledControls = true; //used to stop control of rat during menues and splash screen [reduntant on mobile]
 
-	// get attacthment to button
+	//add audio source and cllips
+	[SerializeField] AudioSource ratNoise;
+	[SerializeField] AudioClip scamper;
+	[SerializeField] AudioClip squeak;
+	[SerializeField] AudioClip zap;
+	[SerializeField] AudioClip squeal;
+	[SerializeField] AudioClip success;
+
+
 
 	//public ButtonControl controls;
 	[SerializeField] VirtualJoystick controls;
@@ -51,7 +61,7 @@ public class RatController : MonoBehaviour {
 
 		count = 0;
 		SetCountText ();
-		winText.text = "";
+		//winText.text = "";
 	}
 	
 	// Update is called once per frame
@@ -76,7 +86,18 @@ public class RatController : MonoBehaviour {
 
 		if (inputDir != Vector2.zero) {
 			float targetRotation = Mathf.Atan2 (inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraT.eulerAngles.y;
-			transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime) ;
+			transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
+			playedSqueak = false;
+			if (playedScamper != true) {
+				ratNoise.PlayOneShot(scamper);
+				playedScamper = true;
+			}
+		} else {
+			playedScamper = false;
+			if (playedSqueak != true){
+				ratNoise.PlayOneShot(squeak);
+				playedSqueak = true;
+			}
 		}
 
 		bool running = false;
@@ -90,6 +111,7 @@ public class RatController : MonoBehaviour {
 
 		velocityY += Time.deltaTime * gravity;
 		Vector3 velocity = transform.forward * currentSpeed;
+
 
 		controller.Move (velocity * Time.deltaTime + Vector3.up * velocityY);
 		currentSpeed = new Vector2 (controller.velocity.x, controller.velocity.z).magnitude;
@@ -116,11 +138,13 @@ public class RatController : MonoBehaviour {
 		countText.text = count.ToString ();
 		if (count >= 1) {
 			winText.text = "You Win!";
+			ratNoise.PlayOneShot (success);
 		}
 	}
 
 	void Die() {
-		winText.text = "Zap! You died!";
+		ratNoise.PlayOneShot (zap);
+		//winText.text = "Zap! You died!";
 	}
 
 	public void MoveUp(){
