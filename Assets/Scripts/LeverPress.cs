@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class LeverPress : MonoBehaviour {
 
-	private GameObject floor;
-	private float time;
+	public GameObject floor;
+	private float time = 1.5f;
+	public int distance = 0;
 
 	void OnTriggerEnter(Collider other) {
 		//If the player hits the button turn off the floor
-		floor = GameObject.FindWithTag("Electricity");
-		if (other.gameObject.CompareTag ("Player")) {
-			StartCoroutine(ShutOff());
+		if (other.gameObject.CompareTag ("Player") && floor.activeInHierarchy) {
+			StartCoroutine (ShutOff ());
 		}		
 	}
 
 	IEnumerator ShutOff() {
-		time = 5;
 		floor.SetActive (false);
-		yield return new WaitForSeconds (time);
+		Debug.Log ("Waiting " + time * distance + " seconds...");
+		yield return new WaitForSeconds (time*distance);
 		floor.SetActive (true);
 	}
-		
+
 }

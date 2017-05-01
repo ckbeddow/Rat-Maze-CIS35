@@ -202,7 +202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4700548786780392}
   m_Layer: 0
-  m_Name: Electricy
+  m_Name: Electricity
   m_TagString: Electricity
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -831,7 +831,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1721036444331504}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: -4.6459785, y: 36.615482, z: -8.464403}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4824101892402804}
@@ -1355,7 +1355,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 72b87c064b0324097a1defe1e9daec51, type: 2}
+  - {fileID: 2100000, guid: 759938a5e7b33481782917c68d06eaac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

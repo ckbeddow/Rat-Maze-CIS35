@@ -16,6 +16,7 @@ public class ElectricityGenerator : MonoBehaviour {
 	public int dimensions;
 	List<Node> nodes;
 	public Node[] solution;
+	public int obstacleDistance;
 
 	// Solve called in MazeBuilder Script
 	public void Solve(int dim, String mazeStr) {
@@ -88,6 +89,8 @@ public class ElectricityGenerator : MonoBehaviour {
 		Debug.Log ("Floor at (" + _floorPositionX + ", " + _floorPositionZ + ")");
 		if (UpWall (floor.type) && DownWall (floor.type))
 			_floorAngleY = 90;
+		else
+			_floorAngleY = 0;
 		return true;
 	}
 
@@ -126,12 +129,15 @@ public class ElectricityGenerator : MonoBehaviour {
 		_leverPositionX = lever.index % dimensions;
 		_leverPositionZ = lever.index / dimensions;
 		Debug.Log ("Floor at (" + _leverPositionX + ", " + _leverPositionZ + ")");
-		if (!DownWall (floor.type))
-			_floorAngleY = 90;
-		else if (!RightWall (floor.type))
+		if (!RightWall (floor.type))
 			_floorAngleY = 180;
+		else if (!DownWall (floor.type))
+			_floorAngleY = 90;
+		else if (!LeftWall (floor.type))
+			_floorAngleY = 0;
 		else if (!UpWall (floor.type))
 			_floorAngleY = -90;
+		obstacleDistance = lever.obsDistance;
 		return true;
 	}
 
@@ -147,24 +153,31 @@ public class ElectricityGenerator : MonoBehaviour {
 		List<Node> deadEnds = new List<Node> ();
 		Queue<Node> queue = new Queue<Node> ();
 		floor.obsSeen = true;
+		floor.obsDistance = 0;
+		floor.parent.obsDistance = 1;
 		queue.Enqueue (floor.parent);
 		while(queue.Count != 0) {
 			Node temp = queue.Dequeue ();
 			temp.obsSeen = true;
-			if(temp.parent != null && !temp.parent.obsSeen)
+			if (temp.parent != null && !temp.parent.obsSeen) {
 				queue.Enqueue (temp.parent);
+				temp.parent.obsDistance = temp.obsDistance + 1;
+			}
 			if (temp.children.Count == 0)
 				deadEnds.Add(temp);
 			while (temp.children.Count != 0) {
-				if (temp.children.Peek().obsSeen)
+				if (temp.children.Peek ().obsSeen)
 					temp.children.Pop ();
-				else
+				else {
+					temp.children.Peek ().obsDistance = temp.obsDistance + 1;
 					queue.Enqueue (temp.children.Pop ());	
+				}
 			}
+			Debug.Log (temp.index + " is " + temp.obsDistance + " away.");
 		}
 		return deadEnds[(UnityEngine.Random.Range (0, deadEnds.Count-1))];
 	}
-					
+
 	private bool RightWall(int value) {
 		return ((1 & value) == 1);
 	}
@@ -191,10 +204,13 @@ public class Node {
 		this.parent = null;
 		this.distance = -1;
 		this.seen = false;
+
 		this.adjacent = new Stack<Node>();
 		this.children = new Stack<Node> ();
+
 		this.obsDistance = -1;
 		this.obsSeen = false;
+		this.obsParent = null;
 	}
 
 	public int index;
@@ -205,6 +221,8 @@ public class Node {
 
 	public Stack<Node> adjacent;
 	public Stack<Node> children;
+
+	public Node obsParent;
 	public int obsDistance;
 	public bool obsSeen;
 }

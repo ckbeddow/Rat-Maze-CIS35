@@ -64,16 +64,23 @@ public class MazeBuilderScript : MonoBehaviour {
 	}
 
 	void SpawnObstacle(ElectricityGenerator myObs) {
-		GameObject floor = Instantiate (Resources.Load<GameObject> ("Electric Floor")) as GameObject;
-		floor.name = "Electric Floor";
-		floor.tag = "ElectricFloor";
-		floor.transform.position = new Vector3(myObs.getFloor ()[0], 0, myObs.getFloor ()[1]);
-		floor.transform.Rotate (0, myObs.getFloor () [2], 0);
+		GameObject floorTile = Instantiate (Resources.Load<GameObject> ("Electric Floor")) as GameObject;
+		floorTile.name = "Electric Floor";
+		floorTile.tag = "ElectricFloor";
+		floorTile.transform.position = new Vector3(myObs.getFloor ()[0], 0, myObs.getFloor ()[1]);
+		floorTile.transform.Rotate (0, myObs.getFloor () [2], 0, Space.World);
 
-		GameObject lever = Instantiate (Resources.Load<GameObject> ("LeverTile")) as GameObject;
-		lever.name = "Lever Tile";
-		lever.transform.parent = floor.transform;
-		lever.transform.position = new Vector3 (myObs.getLever()[0], 0, myObs.getLever()[1]);
-		lever.transform.Rotate (0, myObs.getLever () [2], 0);
+		GameObject leverTile = Instantiate (Resources.Load<GameObject> ("LeverTile")) as GameObject;
+		leverTile.name = "Lever Tile";
+		leverTile.transform.parent = floorTile.transform;
+		leverTile.transform.position = new Vector3 (myObs.getLever()[0], 0, myObs.getLever()[1]);
+		leverTile.transform.Rotate (0, myObs.getLever () [2], 0, Space.World);
+
+		GameObject lever = leverTile.transform.Find ("Lever").gameObject;
+		LeverPress leverScript = lever.GetComponent<LeverPress>();
+		leverScript.distance = myObs.obstacleDistance;
+		leverScript.floor = floorTile.transform.Find ("Electricity").gameObject;
+			
+		Debug.Log("Distance is "+ leverScript.distance);
 	}
 }
