@@ -145,7 +145,9 @@ public class RatController : MonoBehaviour {
 	void Die() {
 		ratNoise.PlayOneShot (zap);
 		enabledControls = false;
-		animator.SetBool ("isAlive", false);
+		animator.SetBool ("isDead", true);
+		enabledControls = false;
+
 		//winText.text = "Zap! You died!";
 	}
 
