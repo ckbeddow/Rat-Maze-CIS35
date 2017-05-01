@@ -129,14 +129,22 @@ public class ElectricityGenerator : MonoBehaviour {
 		_leverPositionX = lever.index % dimensions;
 		_leverPositionZ = lever.index / dimensions;
 		Debug.Log ("Floor at (" + _leverPositionX + ", " + _leverPositionZ + ")");
-		if (!RightWall (floor.type))
-			_floorAngleY = 180;
-		else if (!DownWall (floor.type))
-			_floorAngleY = 90;
-		else if (!LeftWall (floor.type))
-			_floorAngleY = 0;
-		else if (!UpWall (floor.type))
+		Debug.Log ("Right Wall: " + RightWall (lever.type));
+		if (!RightWall (floor.type)) {
 			_floorAngleY = -90;
+		} 
+		Debug.Log ("Down Wall: " + DownWall (lever.type));
+		if (!DownWall (floor.type)) {
+			_floorAngleY = 0;
+		} 
+		Debug.Log ("Left Wall: " + LeftWall (lever.type));
+		if (!LeftWall (floor.type)) {
+			_floorAngleY = -90;
+		}
+		Debug.Log ("Up Wall: " + UpWall (lever.type));
+		if (!UpWall (floor.type)) {
+			_floorAngleY = 180;
+		}
 		obstacleDistance = lever.obsDistance;
 		return true;
 	}
