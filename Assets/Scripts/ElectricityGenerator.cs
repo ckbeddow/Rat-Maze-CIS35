@@ -173,7 +173,6 @@ public class ElectricityGenerator : MonoBehaviour {
 					queue.Enqueue (temp.children.Pop ());	
 				}
 			}
-			Debug.Log (temp.index + " is " + temp.obsDistance + " away.");
 		}
 		return deadEnds[(UnityEngine.Random.Range (0, deadEnds.Count-1))];
 	}

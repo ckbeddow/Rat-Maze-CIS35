@@ -80,7 +80,8 @@ public class MazeBuilderScript : MonoBehaviour {
 		LeverPress leverScript = lever.GetComponent<LeverPress>();
 		leverScript.distance = myObs.obstacleDistance;
 		leverScript.floor = floorTile.transform.Find ("Electricity").gameObject;
-			
+		leverScript.floorSound = lever.GetComponent<AudioSource> ();
+
 		Debug.Log("Distance is "+ leverScript.distance);
 	}
 }
