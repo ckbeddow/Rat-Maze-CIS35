@@ -11,7 +11,7 @@ public class ElectricityGenerator : MonoBehaviour {
 
 	private int _leverPositionX= 0;
 	private int _leverPositionZ = 0;
-	private int _leverAnglyY = 0;
+	private int _leverAngleY = 0;
 
 	public int dimensions;
 	List<Node> nodes;
@@ -86,11 +86,10 @@ public class ElectricityGenerator : MonoBehaviour {
 			return false;
 		_floorPositionX = floor.index % dimensions;
 		_floorPositionZ = floor.index / dimensions;
-		Debug.Log ("Floor at (" + _floorPositionX + ", " + _floorPositionZ + ")");
 		if (UpWall (floor.type) && DownWall (floor.type))
-			_floorAngleY = 90;
-		else
 			_floorAngleY = 0;
+		else
+			_floorAngleY = 90;
 		return true;
 	}
 
@@ -128,22 +127,22 @@ public class ElectricityGenerator : MonoBehaviour {
 			return false;
 		_leverPositionX = lever.index % dimensions;
 		_leverPositionZ = lever.index / dimensions;
-		Debug.Log ("Floor at (" + _leverPositionX + ", " + _leverPositionZ + ")");
 		Debug.Log ("Right Wall: " + RightWall (lever.type));
-		if (!RightWall (floor.type)) {
-			_floorAngleY = -90;
-		} 
 		Debug.Log ("Down Wall: " + DownWall (lever.type));
-		if (!DownWall (floor.type)) {
-			_floorAngleY = 0;
-		} 
 		Debug.Log ("Left Wall: " + LeftWall (lever.type));
-		if (!LeftWall (floor.type)) {
-			_floorAngleY = -90;
-		}
 		Debug.Log ("Up Wall: " + UpWall (lever.type));
-		if (!UpWall (floor.type)) {
-			_floorAngleY = 180;
+		if (!DownWall (lever.type)) {
+			_leverAngleY = 0;
+			Debug.Log ("No Down Wall");
+		} else if (!LeftWall (lever.type)) {
+			_leverAngleY = 90;
+			Debug.Log ("No Left Wall");
+		} else if (!UpWall (lever.type)) {
+			_leverAngleY = 180;
+			Debug.Log ("No Up Wall");
+		} else if (!RightWall (lever.type)) {
+			_leverAngleY = 270;
+			Debug.Log ("No Right Wall");
 		}
 		obstacleDistance = lever.obsDistance;
 		return true;
@@ -153,7 +152,7 @@ public class ElectricityGenerator : MonoBehaviour {
 		int [] coordinates = new int[3];
 		coordinates[0] = _leverPositionX * 5;
 		coordinates[1] = -_leverPositionZ * 5;
-		coordinates [2] = _leverAnglyY;
+		coordinates [2] = _leverAngleY;
 		return coordinates;
 	}
 

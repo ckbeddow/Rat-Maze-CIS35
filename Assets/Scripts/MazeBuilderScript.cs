@@ -43,13 +43,12 @@ public class MazeBuilderScript : MonoBehaviour {
 		myMaze = new Maze ();
 		walls = Resources.LoadAll<GameObject> ("Halls");
 
-		myMaze.GenerateSimple(dim, maze);
-		SpawnMaze (myMaze);
+		myMaze.GenerateSimple(dim, maze);	
 
 		obsGen.Solve (dim, maze);
-		if (obsGen.GenerateFloor ()) {
+		SpawnMaze (myMaze);
+		if (obsGen.GenerateFloor ())
 			SpawnObstacle (obsGen);
-		}
 	}
 		
 	void SpawnMaze(Maze myMaze){
@@ -67,13 +66,17 @@ public class MazeBuilderScript : MonoBehaviour {
 		GameObject floorTile = Instantiate (Resources.Load<GameObject> ("Electric Floor")) as GameObject;
 		floorTile.name = "Electric Floor";
 		floorTile.tag = "ElectricFloor";
+		Debug.Log ("Floor at (" + myObs.getFloor () [0] + ", " + myObs.getFloor () [1] + ")");
 		floorTile.transform.position = new Vector3(myObs.getFloor ()[0], 0, myObs.getFloor ()[1]);
+		Debug.Log ("Rotate Floor: " + myObs.getFloor () [2]);
 		floorTile.transform.Rotate (0, myObs.getFloor () [2], 0, Space.World);
 
 		GameObject leverTile = Instantiate (Resources.Load<GameObject> ("LeverTile")) as GameObject;
 		leverTile.name = "Lever Tile";
 		leverTile.transform.parent = floorTile.transform;
+		Debug.Log ("Lever at (" + myObs.getLever () [0] + ", " + myObs.getLever () [1] + ")");
 		leverTile.transform.position = new Vector3 (myObs.getLever()[0], 0, myObs.getLever()[1]);
+		Debug.Log ("Rotate lever " + myObs.getLever () [2]);
 		leverTile.transform.Rotate (0, myObs.getLever () [2], 0, Space.World);
 
 		GameObject lever = leverTile.transform.Find ("Lever").gameObject;

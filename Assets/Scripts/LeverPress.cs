@@ -9,7 +9,7 @@ public class LeverPress : MonoBehaviour {
 	[SerializeField] public AudioClip powerDown;
 
 	public GameObject floor;
-	private float time = 1.5f;
+	public float time = 1.5f;
 	public int distance = 0;
 
 	void OnTriggerEnter(Collider other) {
