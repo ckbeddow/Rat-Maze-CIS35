@@ -1409,6 +1409,11 @@ Prefab:
       propertyPath: deathScreen
       value: 
       objectReference: {fileID: 1069098676}
+    - target: {fileID: 114423150570279898, guid: 1e1a2e95063a2a349ba2f82e4fac2395,
+        type: 2}
+      propertyPath: squeal
+      value: 
+      objectReference: {fileID: 8300000, guid: d987a911c89234c07a8c7d15ba510a87, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e1a2e95063a2a349ba2f82e4fac2395, type: 2}
   m_IsPrefabParent: 0

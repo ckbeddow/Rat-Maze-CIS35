@@ -144,7 +144,8 @@ public class RatController : MonoBehaviour {
 	}
 
 	IEnumerator Die() {
-		ratNoise.PlayOneShot (zap);
+		ratNoise.PlayOneShot(zap);
+		ratNoise.PlayOneShot (squeal);
 		enabledControls = false;
 		animator.SetBool ("isDead", true);
 		enabledControls = false;
