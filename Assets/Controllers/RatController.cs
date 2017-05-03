@@ -43,7 +43,7 @@ public class RatController : MonoBehaviour {
 	public Text countText;
 	public Text winText;
 	public EndlessWorldController world;
-	int count;
+	public int count = 0;
 
 	[SerializeField] GameObject deathScreen;
 
