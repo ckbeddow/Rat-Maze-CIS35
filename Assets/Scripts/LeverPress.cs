@@ -11,7 +11,10 @@ public class LeverPress : MonoBehaviour {
 	public GameObject floor;
 	public float time = 1.5f;
 	public int distance = 0;
-
+	Animator animator;
+	void Start(){
+		animator = GetComponentInChildren<Animator> ();
+	}
 	void OnTriggerEnter(Collider other) {
 		//If the player hits the button turn off the floor
 		if (other.gameObject.CompareTag ("Player") && floor.activeInHierarchy) {
@@ -22,8 +25,10 @@ public class LeverPress : MonoBehaviour {
 	IEnumerator ShutOff() {
 		floorSound.PlayOneShot (powerDown);
 		floor.SetActive (false);
+		animator.SetBool ("up", false);
 		Debug.Log ("Waiting " + time * distance + " seconds...");
 		yield return new WaitForSeconds (time*distance);
+		animator.SetBool ("up", true);
 		floorSound.PlayOneShot (powerUp);
 		floor.SetActive (true);
 	}
