@@ -15,6 +15,7 @@ public class ThirdPersonCamera : MonoBehaviour {
 	private float mouseY;
 	public bool mobileControls = true; //true for now until we determine how to detect
 	[SerializeField] VirtualJoystick control;
+	[SerializeField] VirtualJoystick cameraControl;
 
 	public float rotationSmoothTime = .12f;
 	Vector3 rotationSmoothVelocity;
@@ -39,7 +40,12 @@ public class ThirdPersonCamera : MonoBehaviour {
 			if (mobileControls) {
 				//yaw += mouseX * mouseSensitivity;
 				//pitch -= mouseY * mouseSensitivity;
-				yaw += control.InputDirection.x * mouseSensitivity;
+				if (Mathf.Abs(control.InputDirection.x) >= Mathf.Abs(cameraControl.InputDirection.x)) {
+					yaw += control.InputDirection.x * mouseSensitivity;
+				} else {
+					yaw += cameraControl.InputDirection.x * mouseSensitivity * 1.1f;
+				}
+
 				pitch = 25;
 				//pitch -= control.InputDirection.z * mouseSensitivity;
 			
