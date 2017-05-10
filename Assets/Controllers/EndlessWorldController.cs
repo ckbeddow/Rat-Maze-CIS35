@@ -34,7 +34,7 @@ public class EndlessWorldController : MonoBehaviour {
 		Destroy (GameObject.FindWithTag ("maze"));
 		Destroy (GameObject.FindWithTag ("ElectricFloor"));
 		Debug.Log ("Destroyed Floor");
-		if(playerControls.count%3==0) 
+		if(playerControls.count < 3 || playerControls.count%3==0) 
 			size++;
 		//player.transform.position = (new Vector3 (-4, 0, 0));
 		gen = new RandomMazeGenerator (size);
