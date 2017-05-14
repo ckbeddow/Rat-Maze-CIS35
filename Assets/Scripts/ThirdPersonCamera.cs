@@ -7,6 +7,7 @@ public class ThirdPersonCamera : MonoBehaviour {
 	public bool cameraControllEnabled = true;
 	public bool lockCursor;
 	public float mouseSensitivity = 2.5f;
+	public float rightStickSensitivity = 2f;
 	public Transform target;
 	public float dstFromTarget = 2;
 	public Vector2 pitchMinMax = new Vector2 (10, 85);
@@ -40,10 +41,10 @@ public class ThirdPersonCamera : MonoBehaviour {
 			if (mobileControls) {
 				//yaw += mouseX * mouseSensitivity;
 				//pitch -= mouseY * mouseSensitivity;
-				if (Mathf.Abs(control.InputDirection.x) >= Mathf.Abs(cameraControl.InputDirection.x)) {
+				if (Mathf.Abs(control.InputDirection.x) >= Mathf.Abs(cameraControl.InputDirection.x)*2) {
 					yaw += control.InputDirection.x * mouseSensitivity;
 				} else {
-					yaw += cameraControl.InputDirection.x * mouseSensitivity * 1.1f;
+					yaw += cameraControl.InputDirection.x * mouseSensitivity * rightStickSensitivity;
 				}
 
 				pitch = 25;
